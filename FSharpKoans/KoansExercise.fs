@@ -27,31 +27,31 @@ module KoansExercise =
     [<Koan>]
     let AssertExpectation() =
         let expectedValue = 1 + 1
-        let actualValue = __ //start by changing this line
+        let actualValue = 2 //start by changing this line
 
         AssertEquality expectedValue actualValue
 
     //Easy, right? Now try one more
     [<Koan>]
     let FillInValues() =
-        AssertEquality (1 + 1) __
+        AssertEquality (1 + 1) 2
 
     [<Koan>]
     let HexadecimalsLiterals() =
         let actualValue = 0x29 + 0x0D
 
-        AssertEquality __ actualValue
+        AssertEquality 54 actualValue
 
     [<Koan>]
     let BinaryLiterals() =
         let actualValue = 0b00101010 + 0b00000101
 
-        AssertEquality __ actualValue
+        AssertEquality 47 actualValue
 
     [<Koan>]
     let NestedScopes() =
         let actualValue =
-            let x = __ + 17
+            let x = 8 + 17
             x
 
         AssertEquality 25 actualValue
@@ -60,26 +60,26 @@ module KoansExercise =
     let StringConcatValue() =
         let message = "hello " + "world"
 
-        AssertEquality message __
+        AssertEquality "hello world"
 
     [<Koan>]
     let FormatStringLiterals() =
         let num = 0x91
         let actualValue = $"An intresting number: '{num}'"
 
-        AssertEquality __ actualValue
+        AssertEquality "An intresting number: '145'" actualValue
 
     [<Koan>]
     let AppendingToAList() =
         let initalValue = [2; 3]
 
-        let result = __ initalValue
+        let result = 1 :: initalValue
 
         AssertEquality [1; 2; 3] result
 
     [<Koan>]
     let FirstFunction() =
-        let compute x = __
+        let compute x = x * 6
 
         let result1 = compute 2
         let result2 = compute 5
@@ -100,7 +100,7 @@ module KoansExercise =
             double(double(x))
 
         let result = quadruple 4
-        AssertEquality result __
+        AssertEquality result 16
 
     [<Koan>]
     let VariablesInTheParentScopeCanBeAccessed() =
@@ -113,13 +113,13 @@ module KoansExercise =
 
         let caffeinatedReply = caffeinate "hello there"
 
-        AssertEquality caffeinatedReply __
+        AssertEquality caffeinatedReply "HELLO THERE!!!"
 
     [<Koan>]
     let FirstPartialFunction() =
         let sub x y = x - y
 
-        let subFrom50 = __
+        let subFrom50 = sub 50
 
         let result1 = subFrom50 10
         let result2 = subFrom50 20
@@ -139,14 +139,17 @@ module KoansExercise =
         // TRY IT: What happens if you remove the parenthesis?
         let result = add (add 5 8) (add 1 1)
 
-        AssertEquality result __
+        AssertEquality result 15
 
     [<Koan>]
     let StringFormattingRevisited() =
         // It's time to apply what you've learned so far. Fill in the function below to
         // make the asserts pass
         let getFunFacts x =
-            __
+            let double = x * 2
+            let triple = x * 3
+            let final = $"{x} doubled is {double}, and {x} tripled is {triple}!"
+            final
 
         let funFactsAboutThree = getFunFacts 3
         let funFactsAboutSix = getFunFacts 6
@@ -161,22 +164,22 @@ module KoansExercise =
         //Note: The list data type in F# is a singly linked list,
         //      so indexing elements is O(n).
 
-        AssertEquality list.Head __
-        AssertEquality list.Tail __
-        AssertEquality list.Length __
+        AssertEquality list.Head "apple"
+        AssertEquality list.Tail ["pear"; "grape"; "peach"]
+        AssertEquality list.Length 4
 
     [<Koan>]
     let CreatingListsWithARange() =
         let list = [0..4]
 
-        AssertEquality list.Head __
-        AssertEquality list.Tail __
+        AssertEquality list.Head 0
+        AssertEquality list.Tail [1..4]
 
     [<Koan>]
     let ReversingAList() =
         let initalValue = [1; 2; 3]
 
-        let result = __ initalValue
+        let result = List.rev initalValue
 
         AssertEquality [3; 2; 1] result
 
@@ -184,7 +187,7 @@ module KoansExercise =
     let SortingAList() =
         let initalValue = [7; 3; 6; 5; 2]
 
-        let result = __ initalValue
+        let result = List.sort initalValue
 
         AssertEquality [2; 3; 5; 6; 7] result
 
@@ -192,7 +195,7 @@ module KoansExercise =
     let SortingAWordListByLength() =
         let initalValue = ["Twas"; "brillig"; "and"; "the"; "slithy"; "toves"; ]
 
-        let result = initalValue |> __
+        let result = initalValue |> List.sortBy(fun x -> x.Length)
 
         AssertEquality ["and"; "the"; "Twas"; "toves"; "slithy"; "brillig"] result
 
@@ -200,7 +203,7 @@ module KoansExercise =
     let SquareNumberList() =
         let initalValue = [1 .. 5]
 
-        let result = initalValue |> __
+        let result = initalValue |> List.map(fun x -> x*x)
 
         AssertEquality [1; 4; 9; 16; 25] result
 
@@ -208,7 +211,7 @@ module KoansExercise =
     let ConvertNumbersToString() =
         let initalValue = [1 .. 5]
 
-        let result = initalValue |> __
+        let result = initalValue |> List.map(fun x -> x.ToString())
 
         AssertEquality ["1"; "2"; "3"; "4"; "5"] result
 
@@ -216,7 +219,7 @@ module KoansExercise =
     let MultiplyAllElementsBy10() =
         let initalValue = [1 .. 5]
 
-        let result = initalValue |> __
+        let result = initalValue |> List.map(fun x -> x * 10)
 
         AssertEquality [10; 20; 30; 40; 50] result
 
@@ -226,7 +229,7 @@ module KoansExercise =
             ["water"; "water"; "every"; "where";
              "nor"; "any"; "drop"; "to"; "drink" ]
 
-        let result = initalValue |> __
+        let result = initalValue |> List.distinct |> List.length
 
         AssertEquality 8 result
 
@@ -234,7 +237,7 @@ module KoansExercise =
     let FindLargestNumberInAList() =
         let initalValue = [22; 6; 89; 33; 45; 10; 21; 67]
 
-        let result = initalValue |> __
+        let result = initalValue |> List.max
 
         AssertEquality 89 result
 
@@ -242,7 +245,7 @@ module KoansExercise =
     let SumAList() =
         let initalValue = [1 .. 5]
 
-        let result = __
+        let result = initalValue |> List.sum
 
         AssertEquality 15 result
 
@@ -250,7 +253,7 @@ module KoansExercise =
     let FliterOutOddNumberFromAList() =
         let initalValue = [1 .. 10]
 
-        let result = initalValue |> __
+        let result = initalValue |> List.filter (fun x -> x % 2 = 0)
 
         AssertEquality [2; 4; 6; 8; 10] result
 
@@ -262,7 +265,7 @@ module KoansExercise =
              "By"; "thy"; "long"; "grey"; "beard"; "and"; "glittering"; "eye";
              "Now"; "wherefore"; "stoppst"; "thou"; "me"]
 
-        let result = __
+        let result = initalValue |>  List.averageBy(fun x -> float x.Length)
 
         AssertEquality
             4.25
@@ -271,7 +274,7 @@ module KoansExercise =
     [<Koan>]
     let TestIfEverWordContainsTheLetterA() =
         let test (l: list<string>) =
-            __
+            l |> List.forall (fun x -> x.Contains "a")
 
         AssertEquality
             true
@@ -286,8 +289,19 @@ module KoansExercise =
     let CaesarCipher() =
         let initalValue = "Encode me!" |> List.ofSeq
 
+        let encode c = 
+            if System.Char.IsUpper c then
+                let x = int c - int 'A'
+                char (((x + 13) % 26) + int 'A')
+            elif System.Char.IsLower c then
+                let x = int c - int 'a'
+                char (((x + 13) % 26) + int 'a')
+            else 
+                c
+
+
         let encoder (l: list<char>) =
-            __
+            l |> List.map encode
 
         let encoded = encoder initalValue
         let decoded = encoder encoded
@@ -303,7 +317,8 @@ module KoansExercise =
     [<Koan>]
     let TestIfAWordHasNoRepeatingLetter() =
         let test (s: string) =
-            __
+          let count = List.ofSeq s |> List.distinct |> List.length
+          count = s.Length
 
         AssertEquality
             true
